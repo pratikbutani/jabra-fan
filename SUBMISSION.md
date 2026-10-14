@@ -15,7 +15,7 @@ Pratik Butani
 ### 2. The 1-Sentence Pitch
 > *Explain what it does like you're pitching a confused investor. ("The more absurd the better")*
 
-**Copy & Paste (Bambaiya Stage Pitch):**
+**Copy & Paste:**
 ```text
 Jabra Fan Pro Max ek zero-hardware cooling system hai jo physical AC aur pankhe ko replace karke laptop ke speaker se reverse-kinetic sound waves phekta hai taaki 1,500 developers ke samne aakkhi public ko pata chale asli thandak kahan se aati hai!
 ```
@@ -39,11 +39,11 @@ Isme humne stage twist button bhi daala hai: 'E BHAI, BAJU ME RE THODA... HAWA A
 ### 4. Website or Repo Link
 > *Direct link, or Github*
 
-**Copy & Paste (Replace with your actual URLs):**
+**Copy & Paste:**
 ```text
-https://jabra-fan-pro-max.vercel.app
+https://jabrafan.vercel.app
 ```
-*(GitHub Repo: `https://github.com/<your-username>/jabra-fan-pro-max`)*
+*(GitHub Repo: `https://github.com/pratikbutani/jabra-fan`)*
 
 ---
 
@@ -60,7 +60,8 @@ https://jabra-fan-pro-max.vercel.app
 > 
 > Features stage hotkeys, crowd blast buttons, aur 1,500 public vibe check!
 > 
-> Live on Vercel: https://jabra-fan-pro-max.vercel.app
+> 🔗 Live on Vercel: https://jabrafan.vercel.app
+> 💻 GitHub: https://github.com/pratikbutani/jabra-fan
 > 
 > Built for The Dumb Ideas Challenge by @gdgmad ahead of DevFest Mumbai 2026! 🔥💻
 > 

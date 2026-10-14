@@ -3,11 +3,15 @@
 > **"E bhai, baju me re thoda... hawaa aane de! Aakkhi public ko pata hai, asli thandak kahan se milti hai!"**  
 > *Official Entry for **The Dumb Ideas Challenge** — GDG MAD &bull; DevFest Mumbai 2026*
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
-[![License: MIT](https://img.shields.io/badge/License-MIT-gold.svg)](https://opensource.org/licenses/MIT)
-[![DevFest Mumbai](https://img.shields.io/badge/DevFest_Mumbai_2026-GDG_MAD-4285F4?logo=google)](https://devfestmumbai.com)
-[![Web Audio API](https://img.shields.io/badge/Audio-Procedural_Bambaiya_Synth-orange)](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
-[![Zero Scroll](https://img.shields.io/badge/UI-Zero--Scroll_Stage_Deck-success)](https://github.com)
+[![Live Demo](https://img.shields.io/badge/LIVE_DEMO-jabrafan.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://jabrafan.vercel.app)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-pratikbutani%2Fjabra--fan-181717?style=for-the-badge&logo=github)](https://github.com/pratikbutani/jabra-fan)
+[![DevFest Mumbai](https://img.shields.io/badge/DevFest_Mumbai_2026-GDG_MAD-4285F4?style=for-the-badge&logo=google)](https://devfestmumbai.com)
+
+---
+
+### 🌐 Live Application
+👉 **Experience it live right now:** **[https://jabrafan.vercel.app](https://jabrafan.vercel.app)**  
+*(Best experienced in Chrome / Safari on desktop with speakers ON!)*
 
 ---
 
@@ -31,7 +35,7 @@ Built specifically for a live presentation in front of **1,500 developers** at D
 | **Web Audio API** | 100% procedural sound synthesis engine with zero external audio assets. Generates real-time pink noise buffers, automated low-pass biquad filtering, sub-bass FM induction motor drone (25Hz–180Hz), and stereo panning. |
 | **WaveShaper Distortion** | Custom hyperbolic tangent distortion curve that activates past 9,000 RPM to simulate physical laptop speaker-cone rattle and mechanical overload. |
 | **Zero Dependencies** | Pure native HTML5, CSS3, and modern Vanilla ES6+. Zero build step, zero bundlers, zero node_modules. |
-| **Vercel Ready** | Configured with `vercel.json` for instant 1-click global deployment. |
+| **Vercel Global Edge** | Deployed with `vercel.json` on [jabrafan.vercel.app](https://jabrafan.vercel.app). |
 
 ---
 
@@ -99,57 +103,24 @@ No mouse required on stage! Control the entire presentation from your keyboard:
 
 ---
 
-## 🚀 Deployment Instructions
-
-### Method 1: Deploy to Vercel (Recommended & Instant)
-
-#### Option A: 1-Click via GitHub & Vercel Dashboard
-1. Push this repository to your GitHub account (see Method 2 below).
-2. Go to [vercel.com](https://vercel.com) and log in.
-3. Click **"Add New..."** > **"Project"**.
-4. Select your `jabra-fan-pro-max` repository.
-5. Keep default settings (Framework Preset: **Other**).
-6. Click **Deploy**! Your live link will be ready in 15 seconds (e.g., `https://jabra-fan-pro-max.vercel.app`).
-
-#### Option B: Deploy via Vercel CLI
-```bash
-# Install Vercel CLI globally (if not installed)
-npm install -g vercel
-
-# Deploy directly from this directory
-vercel
-```
-
----
-
-### Method 2: Push to GitHub
-
-Initialize the repository and push your code:
+## 🚀 Running Locally
 
 ```bash
-# 1. Initialize git (if not already done)
-git init
+# Clone the repository
+git clone https://github.com/pratikbutani/jabra-fan.git
+cd jabra-fan
 
-# 2. Add all project files
-git add .
-
-# 3. Create initial commit
-git commit -m "feat: Jabra Fan Pro Max - Bhidu Coolant System (DevFest Stage Edition)"
-
-# 4. Set main branch
-git branch -M main
-
-# 5. Link your GitHub remote repository
-git remote add origin https://github.com/<your-username>/jabra-fan-pro-max.git
-
-# 6. Push to GitHub
-git push -u origin main
+# Run local web server
+python3 -m http.server 8080
 ```
+Open `http://localhost:8080` in Chrome or Safari.
 
 ---
 
 ## 🏆 Competition Details
 
+* **Live App:** [https://jabrafan.vercel.app](https://jabrafan.vercel.app)
+* **GitHub Repo:** [https://github.com/pratikbutani/jabra-fan](https://github.com/pratikbutani/jabra-fan)
 * **Challenge:** [The Dumb Ideas Challenge](https://tally.so/r/68bYBA)
 * **Organized By:** GDG MAD (`@gdgmad`)
 * **Event:** DevFest Mumbai 2026
