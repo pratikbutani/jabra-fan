@@ -1,0 +1,1871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jabra Fan Pro Max: Bhidu Coolant System (DevFest Stage Edition)</title>
+  <meta name="description" content="Zero-Hardware Desi Room Ventilation: Speaker se niklega toofani hawa. Built for The Dumb Ideas Challenge at DevFest Mumbai 2026.">
+
+  <!-- Google Fonts: JetBrains Mono & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #070b14;
+      --card-bg: rgba(15, 23, 42, 0.88);
+      --card-border: rgba(56, 189, 248, 0.25);
+      --accent-cyan: #38bdf8;
+      --accent-blue: #0284c7;
+      --accent-gold: #facc15;
+      --accent-hazard: #f43f5e;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --led-green: #22c55e;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-sans: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    /* Strict Fullscreen Fit (Zero-Scroll on Laptop & Projector) */
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: radial-gradient(circle at 45% 20%, #0d1e38 0%, var(--bg) 85%);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+    }
+
+    /* Cyber Tech Grid */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        linear-gradient(rgba(56, 189, 248, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56, 189, 248, 0.035) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Screen Shake */
+    body.overclock-shake {
+      animation: bhiduShake 0.05s infinite;
+    }
+
+    @keyframes bhiduShake {
+      0% { transform: translate(2px, 1px) rotate(0deg); }
+      25% { transform: translate(-2px, -2px) rotate(-0.3deg); }
+      50% { transform: translate(-3px, 1px) rotate(0.2deg); }
+      75% { transform: translate(3px, -1px) rotate(0deg); }
+      100% { transform: translate(1px, 2px) rotate(-0.1deg); }
+    }
+
+    /* Critical Hazard Alert */
+    .hazard-banner {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: repeating-linear-gradient(
+        -45deg,
+        #f43f5e,
+        #f43f5e 14px,
+        #0b0f19 14px,
+        #0b0f19 28px
+      );
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-align: center;
+      padding: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      box-shadow: 0 4px 20px rgba(244, 63, 94, 0.7);
+      animation: flash 0.4s infinite alternate;
+      z-index: 100;
+    }
+
+    @keyframes flash {
+      from { opacity: 0.85; }
+      to { opacity: 1; }
+    }
+
+    /* Top Stage Header */
+    header {
+      position: relative;
+      z-index: 10;
+      height: 60px;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(56, 189, 248, 0.15);
+      background: rgba(11, 17, 32, 0.75);
+      backdrop-filter: blur(12px);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .badge-desi {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      background: rgba(250, 204, 21, 0.12);
+      border: 1px solid rgba(250, 204, 21, 0.4);
+      color: var(--accent-gold);
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--led-green);
+      box-shadow: 0 0 8px var(--led-green);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(0.8); }
+    }
+
+    h1 {
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #ffffff 30%, var(--accent-cyan) 80%, var(--accent-gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .stage-pill {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--accent-cyan);
+      padding: 0.35rem 0.75rem;
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .fullscreen-btn {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--text-main);
+      padding: 0.4rem 0.85rem;
+      border-radius: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+    }
+
+    .fullscreen-btn:hover {
+      border-color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.2);
+    }
+
+    /* Main Stage Workspace (2 Columns, Full Viewport) */
+    .stage-container {
+      position: relative;
+      z-index: 5;
+      width: 100vw;
+      height: calc(100vh - 60px);
+      display: grid;
+      grid-template-columns: 1.45fr 1fr;
+      padding: 1rem 1.25rem;
+      gap: 1.25rem;
+    }
+
+    /* Left: Grand Canvas Stage Card (Auto-Fits & Maximizes Size) */
+    .viewport-stage {
+      position: relative;
+      background: radial-gradient(circle at 50% 45%, #0f2444 0%, #081122 80%);
+      border: 1px solid var(--card-border);
+      border-radius: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.8), 0 20px 45px -10px rgba(0, 0, 0, 0.7);
+      padding: 0.5rem;
+    }
+
+    #applianceCanvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    /* Live Bhidu Comic Speech Bubble (Stage Twist) */
+    .bambaiya-speech-bubble {
+      position: absolute;
+      top: 1.25rem;
+      left: 1.5rem;
+      background: #facc15;
+      color: #070b14;
+      font-family: var(--font-sans);
+      font-weight: 900;
+      font-size: 0.88rem;
+      letter-spacing: -0.01em;
+      padding: 0.6rem 1.15rem;
+      border-radius: 1rem;
+      border-bottom-left-radius: 0;
+      box-shadow: 0 8px 25px rgba(250, 204, 21, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      z-index: 30;
+      animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.3s;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.7) translateY(10px); opacity: 0; }
+      100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+
+    /* Stage Twist Bar at bottom of Stage */
+    .stage-twist-bar {
+      position: absolute;
+      bottom: 1.25rem;
+      left: 1.5rem;
+      right: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 25;
+      pointer-events: none;
+    }
+
+    .twist-btn-group {
+      display: flex;
+      gap: 0.65rem;
+      pointer-events: auto;
+    }
+
+    .twist-action-btn {
+      background: linear-gradient(135deg, #f59e0b, #facc15);
+      color: #070b14;
+      border: none;
+      font-family: var(--font-sans);
+      font-weight: 900;
+      font-size: 0.82rem;
+      padding: 0.6rem 1.1rem;
+      border-radius: 0.75rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      box-shadow: 0 6px 18px rgba(245, 158, 11, 0.4);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .twist-action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(245, 158, 11, 0.6);
+      filter: brightness(1.1);
+    }
+
+    /* Size Booster Controls on Stage */
+    .stage-size-controls {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(11, 17, 32, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 0.3rem 0.6rem;
+      border-radius: 0.65rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent-cyan);
+    }
+
+    .size-btn {
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--accent-cyan);
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .size-btn:hover {
+      background: rgba(56, 189, 248, 0.35);
+      color: #ffffff;
+    }
+
+    .hud-chip {
+      pointer-events: auto;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      background: rgba(11, 17, 32, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 0.45rem 0.85rem;
+      border-radius: 0.6rem;
+      backdrop-filter: blur(8px);
+    }
+
+    /* Right: Mission Deck (Zero-Scroll Controls & Telemetry) */
+    .mission-deck {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.8rem;
+      height: 100%;
+    }
+
+    /* 1. Appliance Switcher */
+    .appliance-selector-deck {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 1.25rem;
+      padding: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .deck-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .appliance-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+    }
+
+    .appliance-card-btn {
+      background: rgba(11, 17, 32, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      border-radius: 0.85rem;
+      padding: 0.65rem 0.3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      font-weight: 800;
+      font-size: 0.78rem;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .appliance-card-btn .hotkey {
+      position: absolute;
+      top: 4px;
+      right: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      opacity: 0.6;
+    }
+
+    .appliance-card-btn .app-icon {
+      font-size: 1.5rem;
+    }
+
+    .appliance-card-btn:hover {
+      border-color: var(--accent-cyan);
+      color: var(--text-main);
+      transform: translateY(-2px);
+    }
+
+    .appliance-card-btn.active {
+      background: rgba(56, 189, 248, 0.2);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.3);
+    }
+
+    /* 2. Telemetry HUD Tiles */
+    .telemetry-deck {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.55rem;
+    }
+
+    .telemetry-tile {
+      background: rgba(11, 17, 32, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 0.65rem 0.85rem;
+      border-radius: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .tile-title {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .tile-value {
+      font-family: var(--font-mono);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: baseline;
+      gap: 0.3rem;
+    }
+
+    .tile-value .unit {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--accent-cyan);
+    }
+
+    .tile-bar {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-top: 0.2rem;
+    }
+
+    .tile-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #0284c7, var(--accent-cyan));
+      transition: width 0.15s ease-out;
+    }
+
+    .tile-fill.danger {
+      background: linear-gradient(90deg, var(--accent-gold), var(--accent-hazard));
+    }
+
+    /* 3. Controls & Sliders Deck */
+    .controls-deck {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 1.25rem;
+      padding: 0.95rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    /* Main Power Button */
+    .power-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      border: none;
+      color: #070b14;
+      font-family: var(--font-sans);
+      font-weight: 900;
+      font-size: 1.05rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.85rem;
+      border-radius: 0.85rem;
+      cursor: pointer;
+      box-shadow: 0 8px 20px -4px rgba(56, 189, 248, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .power-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px -4px rgba(56, 189, 248, 0.65);
+      filter: brightness(1.1);
+    }
+
+    .power-btn.active {
+      background: linear-gradient(135deg, #e11d48, #f43f5e);
+      color: #ffffff;
+      box-shadow: 0 8px 20px -4px rgba(244, 63, 94, 0.55);
+    }
+
+    /* Presets */
+    .preset-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.35rem;
+    }
+
+    .preset-pill {
+      background: rgba(11, 17, 32, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.5rem 0.15rem;
+      border-radius: 0.55rem;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+    }
+
+    .preset-pill:hover:not(:disabled) {
+      border-color: var(--accent-cyan);
+      color: var(--text-main);
+    }
+
+    .preset-pill.active {
+      background: rgba(56, 189, 248, 0.25);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+    }
+
+    .preset-pill.overclock {
+      color: #fca5a5;
+      border-color: rgba(244, 63, 94, 0.4);
+    }
+
+    .preset-pill.overclock.active {
+      background: rgba(244, 63, 94, 0.28);
+      border-color: var(--accent-hazard);
+      color: #ffffff;
+      box-shadow: 0 0 14px rgba(244, 63, 94, 0.5);
+    }
+
+    .preset-pill:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    /* Sliders */
+    .slider-compact {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .slider-header-compact {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    input[type=range] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.12);
+      outline: none;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      box-shadow: 0 0 8px var(--accent-cyan);
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+
+    input[type=range]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+    }
+
+    input[type=range]:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    /* Stage Shortcuts Bar */
+    .shortcuts-bar {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-align: center;
+      background: rgba(11, 17, 32, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 0.4rem;
+      border-radius: 0.5rem;
+    }
+
+    .shortcuts-bar kbd {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 3px;
+      padding: 1px 4px;
+      color: var(--accent-gold);
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hazard Header (Khopdi Fod Alert) -->
+  <div class="hazard-banner" id="hazardBanner">
+    🚨 AE BHIDU! PANKHA UD JAYEGA! ITNA FAST NAHI CHALANE KA! SPEAKER PHAT JAYEGA RE BABA! 🚨
+  </div>
+
+  <!-- Top Header Navigation -->
+  <header>
+    <div class="header-left">
+      <div class="badge-desi">
+        <span class="status-dot"></span>
+        <span>Bambaiya Coolant Engine &bull; GDG MAD DevFest Mumbai 2026</span>
+      </div>
+      <div>
+        <h1>JABRA FAN PRO MAX</h1>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <div class="stage-pill">
+        <span>📢</span>
+        <span id="activeApplianceText">JABRA TABLE PANKHA</span>
+      </div>
+      <button class="fullscreen-btn" id="fsToggleBtn" title="Projector Fullscreen">
+        <span>⛶</span>
+        <span>Stage Mode</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Stage Workspace -->
+  <main class="stage-container">
+
+    <!-- Left: The Grand Stage (Auto-Scaling Appliance) -->
+    <section class="viewport-stage" id="viewportStage">
+
+      <!-- Comic Dialogue Twist -->
+      <div class="bambaiya-speech-bubble" id="speechBubble">
+        <span>🗣️</span>
+        <span id="speechText">&ldquo;E bhai! Baju me re thoda... hawaa aane de!&rdquo;</span>
+      </div>
+
+      <!-- High-DPI 2D/2.5D Appliance Canvas -->
+      <canvas id="applianceCanvas"></canvas>
+
+      <!-- Stage Twist Action Bar & Size Booster -->
+      <div class="stage-twist-bar">
+        <div class="twist-btn-group">
+          <!-- The Crowd Twist Button -->
+          <button class="twist-action-btn" id="bajuMeReBtn" title="Press B for audience blast">
+            <span>💨</span>
+            <span>&ldquo;E BHAI, BAJU ME RE!&rdquo; (BLAST)</span>
+          </button>
+          <button class="twist-action-btn" id="vibeCheckBtn" style="background: linear-gradient(135deg, #0284c7, #38bdf8); color:#fff;" title="Scan 1,500 people">
+            <span>👥</span>
+            <span>1,500 Vibe Check</span>
+          </button>
+        </div>
+
+        <!-- Size Plus / Minus Booster Controls -->
+        <div class="stage-size-controls">
+          <span>SIZE:</span>
+          <button class="size-btn" id="sizeMinusBtn" title="Decrease size [-]">-</button>
+          <span id="sizeValText" style="font-weight:800; min-width:38px; text-align:center;">130%</span>
+          <button class="size-btn" id="sizePlusBtn" title="Increase size [+]">+</button>
+        </div>
+
+        <div class="hud-chip" id="hudVelocity">TOOFAN: 0.0 KM/H</div>
+      </div>
+
+    </section>
+
+    <!-- Right: Mission Deck (Zero-Scroll Controls & Telemetry) -->
+    <aside class="mission-deck">
+
+      <!-- 1. Quick Appliance Switcher (Instant 1-Click) -->
+      <section class="appliance-selector-deck">
+        <div class="deck-label">
+          <span>COOLING MACHINE BADAL</span>
+          <span style="color:var(--accent-gold)">KEYS: [1] [2] [3]</span>
+        </div>
+        <div class="appliance-cards">
+          <button class="appliance-card-btn active" data-machine="table">
+            <span class="hotkey">1</span>
+            <span class="app-icon">🌀</span>
+            <span>Table Fan</span>
+          </button>
+          <button class="appliance-card-btn" data-machine="ceiling">
+            <span class="hotkey">2</span>
+            <span class="app-icon">🛸</span>
+            <span>Chhat Pankha</span>
+          </button>
+          <button class="appliance-card-btn" data-machine="ac">
+            <span class="hotkey">3</span>
+            <span class="app-icon">❄️</span>
+            <span>5-Star AC</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 2. Live Telemetry Tiles -->
+      <section class="telemetry-deck">
+        <div class="telemetry-tile">
+          <span class="tile-title">Kamre Ka Maahaul</span>
+          <div class="tile-value">
+            <span id="tempValue">28.4</span>
+            <span class="unit">°C</span>
+          </div>
+          <div class="tile-bar">
+            <div class="tile-fill" id="tempFill"></div>
+          </div>
+        </div>
+
+        <div class="telemetry-tile">
+          <span class="tile-title">Hawa Ka Tod</span>
+          <div class="tile-value">
+            <span id="airValue">0.0</span>
+            <span class="unit">CFM</span>
+          </div>
+          <div class="tile-bar">
+            <div class="tile-fill" id="airFill"></div>
+          </div>
+        </div>
+
+        <div class="telemetry-tile">
+          <span class="tile-title">Speaker Ki Jaan</span>
+          <div class="tile-value">
+            <span id="thrustValue">0.00</span>
+            <span class="unit">Newton</span>
+          </div>
+          <div class="tile-bar">
+            <div class="tile-fill" id="thrustFill"></div>
+          </div>
+        </div>
+
+        <div class="telemetry-tile">
+          <span class="tile-title">Ghar Ka Bijli Bill</span>
+          <div class="tile-value">
+            <span id="billValue">0</span>
+            <span class="unit">₹/hr</span>
+          </div>
+          <div class="tile-bar">
+            <div class="tile-fill danger" id="billFill"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Control Panel -->
+      <section class="controls-deck">
+
+        <!-- Power Button -->
+        <button class="power-btn" id="powerBtn">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
+            <line x1="12" y1="2" x2="12" y2="12"></line>
+          </svg>
+          <span id="powerBtnText">Chalu Kar, Bhidu!</span>
+        </button>
+
+        <!-- Presets -->
+        <div class="preset-row">
+          <div class="deck-label">
+            <span>HAWA KE PROFILES</span>
+            <span id="profileStatus" style="color:var(--accent-cyan)">SAB THANDI HAI</span>
+          </div>
+          <div class="preset-grid">
+            <button class="preset-pill" data-rpm="600" disabled>Thanda Haath</button>
+            <button class="preset-pill" data-rpm="2200" disabled>Mast Hawa</button>
+            <button class="preset-pill" data-rpm="4800" disabled>Toofan Mail</button>
+            <button class="preset-pill overclock" data-rpm="11500" disabled>KHOPDI FOD</button>
+          </div>
+        </div>
+
+        <!-- Speed Slider -->
+        <div class="slider-compact">
+          <div class="slider-header-compact">
+            <span id="speedSliderTitle">PANKHE KA CHAKKAR</span>
+            <span style="color:var(--accent-cyan); font-weight:800;"><span id="rpmDisplay">0</span> <span id="speedUnitText">RPM</span></span>
+          </div>
+          <input type="range" id="rpmSlider" min="0" max="12000" value="0" step="100" disabled>
+        </div>
+
+        <!-- Oscillation Slider -->
+        <div class="slider-compact">
+          <div class="slider-header-compact">
+            <span id="oscSliderTitle">MUNDI HILA (SWING)</span>
+            <span id="oscDisplay" style="color:var(--accent-cyan); font-weight:800;">OFF</span>
+          </div>
+          <input type="range" id="oscSlider" min="0" max="90" value="0" step="5" disabled>
+        </div>
+
+      </section>
+
+      <!-- Stage Shortcuts Footer -->
+      <footer class="shortcuts-bar">
+        <span>⚡ <strong>STAGE HOTKEYS:</strong> <kbd>Space</kbd> Power &bull; <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> Machines &bull; <kbd>B</kbd> Baju Me Re! &bull; <kbd>+</kbd><kbd>-</kbd> Size &bull; <kbd>F</kbd> Fullscreen</span>
+      </footer>
+
+    </aside>
+
+  </main>
+
+  <!-- Web Audio & High-Resolution Canvas Stage Script -->
+  <script>
+    /* =====================================================================
+       GLOBAL STATE & DIALOGUES
+       ===================================================================== */
+    let currentAppliance = 'table'; // 'table' | 'ceiling' | 'ac'
+    let isRunning = false;
+    let targetRpm = 0;
+    let currentRpm = 0;
+    let baseTemp = 28.4;
+    let oscAmplitude = 0;
+    let oscTime = 0;
+
+    // Sizing & Scaling Factor (Starts at 130% to maximize all available space!)
+    let userZoomFactor = 1.30;
+
+    // AC Flap & Mist State
+    let acFlapProgress = 0;
+    let acSwingCycle = 0;
+
+    // Stage Gust Blast Effect
+    let blastActive = false;
+    let blastIntensity = 0;
+
+    // Funny Bhidu Stage Quotes
+    const bhiduQuotes = [
+      "E bhai! Baju me re thoda... hawaa aane de!",
+      "Aakkhi Mumbai ki garmi ka ekch ilaj — Jabra Fan!",
+      "Dekh bhai, speaker se aisi thandi hawa phekega ki jacket pehanna padega!",
+      "1,500 log baithe hain... sabko thandak milni mangti hai!",
+      "Bernoulli kaka zindabad! Laptop ke speaker se cyclone nikalega!",
+      "AC ka bill baap nahi bharega! Jabra Fan chalao!",
+      "Khopdi fod speed pe laptop tawa banega par dil thanda rahega!"
+    ];
+
+    // DOM Elements
+    const canvas = document.getElementById('applianceCanvas');
+    const viewportStage = document.getElementById('viewportStage');
+    const ctx = canvas.getContext('2d');
+    const powerBtn = document.getElementById('powerBtn');
+    const powerBtnText = document.getElementById('powerBtnText');
+    const rpmSlider = document.getElementById('rpmSlider');
+    const oscSlider = document.getElementById('oscSlider');
+    const rpmDisplay = document.getElementById('rpmDisplay');
+    const oscDisplay = document.getElementById('oscDisplay');
+    const tempValue = document.getElementById('tempValue');
+    const airValue = document.getElementById('airValue');
+    const thrustValue = document.getElementById('thrustValue');
+    const billValue = document.getElementById('billValue');
+    const tempFill = document.getElementById('tempFill');
+    const airFill = document.getElementById('airFill');
+    const thrustFill = document.getElementById('thrustFill');
+    const billFill = document.getElementById('billFill');
+    const hudVelocity = document.getElementById('hudVelocity');
+    const profileStatus = document.getElementById('profileStatus');
+    const hazardBanner = document.getElementById('hazardBanner');
+    const speechBubble = document.getElementById('speechBubble');
+    const speechText = document.getElementById('speechText');
+    const bajuMeReBtn = document.getElementById('bajuMeReBtn');
+    const vibeCheckBtn = document.getElementById('vibeCheckBtn');
+    const fsToggleBtn = document.getElementById('fsToggleBtn');
+    const sizeMinusBtn = document.getElementById('sizeMinusBtn');
+    const sizePlusBtn = document.getElementById('sizePlusBtn');
+    const sizeValText = document.getElementById('sizeValText');
+    const activeApplianceText = document.getElementById('activeApplianceText');
+    const applianceCardBtns = document.querySelectorAll('.appliance-card-btn');
+    const presetPills = document.querySelectorAll('.preset-pill');
+    const speedSliderTitle = document.getElementById('speedSliderTitle');
+    const oscSliderTitle = document.getElementById('oscSliderTitle');
+    const speedUnitText = document.getElementById('speedUnitText');
+
+    /* =====================================================================
+       DYNAMIC CANVAS RESIZE TO FILL 100% OF STAGE
+       ===================================================================== */
+    function resizeCanvas() {
+      const rect = viewportStage.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(rect.width * dpr);
+      canvas.height = Math.round(rect.height * dpr);
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    /* =====================================================================
+       WEB AUDIO SYNTHESIS ENGINE
+       ===================================================================== */
+    let audioCtx = null;
+    let noiseNode = null;
+    let airFilter = null;
+    let airGain = null;
+    let motorOsc = null;
+    let motorGain = null;
+    let panNode = null;
+    let distortionNode = null;
+    let acHumOsc = null;
+    let acHumGain = null;
+
+    function buildPinkNoiseBuffer(ctx) {
+      const bufferSize = ctx.sampleRate * 2;
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+
+      for (let i = 0; i < bufferSize; i++) {
+        const white = Math.random() * 2 - 1;
+        b0 = 0.99886 * b0 + white * 0.0555179;
+        b1 = 0.99332 * b1 + white * 0.0750759;
+        b2 = 0.96900 * b2 + white * 0.1538520;
+        b3 = 0.86650 * b3 + white * 0.3104856;
+        b4 = 0.55000 * b4 + white * 0.5329522;
+        b5 = -0.76160 * b5 - white * 0.0168980;
+        data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.11;
+        b6 = white * 0.115926;
+      }
+      return buffer;
+    }
+
+    function makeDistortionCurve(amount) {
+      const k = typeof amount === 'number' ? amount : 50;
+      const n_samples = 44100;
+      const curve = new Float32Array(n_samples);
+      const deg = Math.PI / 180;
+      for (let i = 0; i < n_samples; ++i) {
+        const x = (i * 2) / n_samples - 1;
+        curve[i] = ((3 + k) * x * 20 * deg) / (Math.PI + k * Math.abs(x));
+      }
+      return curve;
+    }
+
+    function initAudioEngine() {
+      const AudioClass = window.AudioContext || window.webkitAudioContext;
+      audioCtx = new AudioClass();
+
+      const pinkBuffer = buildPinkNoiseBuffer(audioCtx);
+      noiseNode = audioCtx.createBufferSource();
+      noiseNode.buffer = pinkBuffer;
+      noiseNode.loop = true;
+
+      airFilter = audioCtx.createBiquadFilter();
+      airFilter.type = 'lowpass';
+      airFilter.frequency.value = 140;
+
+      airGain = audioCtx.createGain();
+      airGain.gain.value = 0;
+
+      motorOsc = audioCtx.createOscillator();
+      motorOsc.type = 'sawtooth';
+      motorOsc.frequency.value = 35;
+
+      motorGain = audioCtx.createGain();
+      motorGain.gain.value = 0;
+
+      acHumOsc = audioCtx.createOscillator();
+      acHumOsc.type = 'triangle';
+      acHumOsc.frequency.value = 50;
+
+      acHumGain = audioCtx.createGain();
+      acHumGain.gain.value = 0;
+
+      if (audioCtx.createStereoPanner) {
+        panNode = audioCtx.createStereoPanner();
+      } else {
+        panNode = audioCtx.createGain();
+      }
+
+      distortionNode = audioCtx.createWaveShaper();
+      distortionNode.curve = makeDistortionCurve(0);
+      distortionNode.oversample = '4x';
+
+      noiseNode.connect(airFilter);
+      airFilter.connect(airGain);
+
+      motorOsc.connect(motorGain);
+      acHumOsc.connect(acHumGain);
+
+      airGain.connect(distortionNode);
+      motorGain.connect(distortionNode);
+      acHumGain.connect(distortionNode);
+
+      distortionNode.connect(panNode);
+      panNode.connect(audioCtx.destination);
+
+      noiseNode.start();
+      motorOsc.start();
+      acHumOsc.start();
+    }
+
+    function playAcBeep() {
+      if (!audioCtx) return;
+      const now = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(1400, now);
+      osc.frequency.setValueAtTime(2100, now + 0.08);
+
+      gain.gain.setValueAtTime(0.2, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.24);
+    }
+
+    function playGustBlastAudio() {
+      if (!audioCtx) return;
+      const now = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(120, now);
+      osc.frequency.exponentialRampToValueAtTime(40, now + 0.8);
+
+      gain.gain.setValueAtTime(0.4, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.9);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc.start(now);
+      osc.stop(now + 1.0);
+    }
+
+    function updateAudioEngine() {
+      if (!audioCtx) return;
+
+      const norm = Math.min(currentRpm / 12000, 1.0);
+
+      if (currentAppliance === 'ac') {
+        const acCutoff = 160 + norm * 1800;
+        airFilter.frequency.setTargetAtTime(acCutoff, audioCtx.currentTime, 0.08);
+        airGain.gain.setTargetAtTime(norm * 0.55, audioCtx.currentTime, 0.08);
+        motorGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.05);
+        acHumGain.gain.setTargetAtTime(norm > 0.01 ? 0.08 + norm * 0.12 : 0, audioCtx.currentTime, 0.08);
+        acHumOsc.frequency.setTargetAtTime(50 + norm * 35, audioCtx.currentTime, 0.08);
+      } else if (currentAppliance === 'ceiling') {
+        const wobble = Math.sin(oscTime * 3) * 0.15;
+        const ceilingCutoff = 120 + Math.pow(norm, 1.2) * 1600;
+        airFilter.frequency.setTargetAtTime(ceilingCutoff, audioCtx.currentTime, 0.05);
+        airGain.gain.setTargetAtTime(norm * (0.65 + wobble), audioCtx.currentTime, 0.05);
+        motorGain.gain.setTargetAtTime(norm > 0.01 ? 0.05 + norm * 0.08 : 0, audioCtx.currentTime, 0.05);
+        motorOsc.frequency.setTargetAtTime(25 + norm * 90, audioCtx.currentTime, 0.05);
+        acHumGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.05);
+      } else {
+        const tableCutoff = 140 + Math.pow(norm, 1.2) * 2600;
+        airFilter.frequency.setTargetAtTime(tableCutoff, audioCtx.currentTime, 0.05);
+        airGain.gain.setTargetAtTime(norm * 0.75, audioCtx.currentTime, 0.05);
+        motorGain.gain.setTargetAtTime(norm > 0.01 ? 0.04 + norm * 0.14 : 0, audioCtx.currentTime, 0.05);
+        motorOsc.frequency.setTargetAtTime(25 + norm * 160, audioCtx.currentTime, 0.05);
+        acHumGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.05);
+      }
+
+      if (panNode && panNode.pan) {
+        const panVal = Math.sin(oscTime) * (oscAmplitude / 90);
+        panNode.pan.setTargetAtTime(panVal, audioCtx.currentTime, 0.05);
+      }
+
+      if (currentRpm > 9000) {
+        const dist = ((currentRpm - 9000) / 3000) * 160;
+        distortionNode.curve = makeDistortionCurve(dist);
+      } else {
+        distortionNode.curve = makeDistortionCurve(0);
+      }
+    }
+
+    /* =====================================================================
+       HIGH-POLISH 2D/2.5D CANVAS RENDERING WITH DYNAMIC SCALING
+       ===================================================================== */
+    let rotorAngle = 0;
+    let mistParticles = [];
+    let blastSpeedLines = [];
+
+    for (let i = 0; i < 90; i++) {
+      mistParticles.push({
+        x: (Math.random() - 0.5) * 550,
+        y: Math.random() * 320,
+        speed: 1.2 + Math.random() * 3.5,
+        size: 2.5 + Math.random() * 5.5,
+        alpha: Math.random() * 0.7
+      });
+    }
+
+    /* -------------------------------------------------------------
+       1. DRAW JABRA TABLE FAN (SCALED & POSITIONED)
+       ------------------------------------------------------------- */
+    function drawTableFan(cx, cy, angle, oscOffset, scale) {
+      ctx.save();
+      ctx.translate(cx + oscOffset * scale, cy - 20 * scale);
+      ctx.scale(scale, scale);
+
+      const radius = 175;
+      const blades = 4;
+
+      // Base Stand
+      ctx.beginPath();
+      ctx.ellipse(0, 220, 130, 36, 0, 0, Math.PI * 2);
+      const baseGrad = ctx.createLinearGradient(-130, 190, 130, 250);
+      baseGrad.addColorStop(0, '#1e293b');
+      baseGrad.addColorStop(0.5, '#475569');
+      baseGrad.addColorStop(1, '#0f172a');
+      ctx.fillStyle = baseGrad;
+      ctx.fill();
+      ctx.strokeStyle = '#0284c7';
+      ctx.lineWidth = 3.5;
+      ctx.stroke();
+
+      // Stem (Chrome column)
+      const stemGrad = ctx.createLinearGradient(-18, 0, 18, 0);
+      stemGrad.addColorStop(0, '#334155');
+      stemGrad.addColorStop(0.5, '#cbd5e1');
+      stemGrad.addColorStop(1, '#1e293b');
+      ctx.fillStyle = stemGrad;
+      ctx.fillRect(-16, 30, 32, 190);
+
+      // Neck Pivot Ball
+      ctx.beginPath();
+      ctx.arc(0, 30, 26, 0, Math.PI * 2);
+      ctx.fillStyle = '#475569';
+      ctx.fill();
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+
+      // Rear Motor Housing Depth
+      ctx.beginPath();
+      ctx.arc(0, 0, 72, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(11, 17, 32, 0.95)';
+      ctx.fill();
+
+      // Outer Guard Rings
+      [radius, radius - 30, radius - 70].forEach((r, idx) => {
+        ctx.beginPath();
+        ctx.arc(0, 0, r, 0, Math.PI * 2);
+        ctx.strokeStyle = idx === 0 ? '#38bdf8' : '#334155';
+        ctx.lineWidth = idx === 0 ? 4 : 2;
+        ctx.stroke();
+      });
+
+      // 16 Protective Cage Spokes
+      ctx.strokeStyle = 'rgba(148, 163, 184, 0.4)';
+      ctx.lineWidth = 2;
+      for (let i = 0; i < 16; i++) {
+        const spokeAngle = (i * Math.PI) / 8;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(Math.cos(spokeAngle) * radius, Math.sin(spokeAngle) * radius);
+        ctx.stroke();
+      }
+
+      // 4 Sculpted Aerodynamic Blades
+      ctx.save();
+      ctx.rotate(angle);
+      for (let i = 0; i < blades; i++) {
+        ctx.rotate((2 * Math.PI) / blades);
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.bezierCurveTo(42, -35, 72, -radius + 15, 0, -radius + 12);
+        ctx.bezierCurveTo(-72, -radius + 15, -42, -35, 0, 0);
+
+        const bladeGrad = ctx.createLinearGradient(0, 0, 0, -radius);
+        bladeGrad.addColorStop(0, '#0284c7');
+        bladeGrad.addColorStop(0.7, '#38bdf8');
+        bladeGrad.addColorStop(1, '#e0f2fe');
+        ctx.fillStyle = bladeGrad;
+        ctx.fill();
+
+        ctx.strokeStyle = '#7dd3fc';
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      // Center Chrome Hub Badge with Glow
+      ctx.beginPath();
+      ctx.arc(0, 0, 42, 0, Math.PI * 2);
+      const hubGrad = ctx.createRadialGradient(-10, -10, 3, 0, 0, 42);
+      hubGrad.addColorStop(0, '#f8fafc');
+      hubGrad.addColorStop(0.3, '#38bdf8');
+      hubGrad.addColorStop(0.8, '#0f172a');
+      hubGrad.addColorStop(1, '#0284c7');
+      ctx.fillStyle = hubGrad;
+      ctx.fill();
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 4;
+      ctx.stroke();
+
+      // Badge Center Dot
+      ctx.beginPath();
+      ctx.arc(0, 0, 9, 0, Math.PI * 2);
+      ctx.fillStyle = '#facc15';
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    /* -------------------------------------------------------------
+       2. DRAW CHHAT WALA PANKHA (SCALED & POSITIONED)
+       ------------------------------------------------------------- */
+    function drawCeilingFan(cx, cy, angle, scale) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.scale(scale, scale);
+
+      const bladeLength = 220;
+      const blades = 3;
+
+      // 1. Rotating Floor Drop-Shadow
+      ctx.save();
+      ctx.translate(22, 35);
+      ctx.rotate(angle);
+      for (let i = 0; i < blades; i++) {
+        ctx.rotate((2 * Math.PI) / blades);
+        ctx.beginPath();
+        ctx.roundRect(28, -18, bladeLength, 36, 12);
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+        ctx.fill();
+      }
+      ctx.restore();
+
+      // 2. Air Ripple Waves
+      if (currentRpm > 0) {
+        const norm = currentRpm / 12000;
+        ctx.beginPath();
+        ctx.arc(0, 0, bladeLength + 25, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(56, 189, 248, ${norm * 0.3})`;
+        ctx.lineWidth = 3;
+        ctx.stroke();
+      }
+
+      // 3. Central Downrod & Mount
+      ctx.beginPath();
+      ctx.arc(0, 0, 80, 0, Math.PI * 2);
+      ctx.fillStyle = '#0b1120';
+      ctx.fill();
+      ctx.strokeStyle = '#1e293b';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      // 4. Rotating Aerodynamic Metallic Blades
+      ctx.save();
+      ctx.rotate(angle);
+      for (let i = 0; i < blades; i++) {
+        ctx.rotate((2 * Math.PI) / blades);
+
+        // Blade Attachment Bracket
+        ctx.beginPath();
+        ctx.roundRect(32, -12, 36, 24, 6);
+        ctx.fillStyle = '#facc15';
+        ctx.fill();
+        ctx.strokeStyle = '#ca8a04';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Screws
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(40, -6, 4, 4);
+        ctx.fillRect(40, 3, 4, 4);
+
+        // Main Aerodynamic Blade
+        ctx.beginPath();
+        ctx.moveTo(60, -20);
+        ctx.lineTo(bladeLength + 25, -14);
+        ctx.bezierCurveTo(bladeLength + 45, -8, bladeLength + 45, 8, bladeLength + 25, 14);
+        ctx.lineTo(60, 20);
+        ctx.closePath();
+
+        const bladeGrad = ctx.createLinearGradient(60, -20, bladeLength + 30, 20);
+        bladeGrad.addColorStop(0, '#1e293b');
+        bladeGrad.addColorStop(0.3, '#0284c7');
+        bladeGrad.addColorStop(0.7, '#38bdf8');
+        bladeGrad.addColorStop(1, '#0f172a');
+        ctx.fillStyle = bladeGrad;
+        ctx.fill();
+
+        ctx.strokeStyle = '#7dd3fc';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Highlight Streak
+        ctx.beginPath();
+        ctx.moveTo(75, 0);
+        ctx.lineTo(bladeLength, 0);
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      // 5. Central Motor Flywheel Hub
+      ctx.beginPath();
+      ctx.arc(0, 0, 52, 0, Math.PI * 2);
+      const hubGrad = ctx.createRadialGradient(-12, -12, 3, 0, 0, 52);
+      hubGrad.addColorStop(0, '#f8fafc');
+      hubGrad.addColorStop(0.3, '#38bdf8');
+      hubGrad.addColorStop(0.7, '#0f172a');
+      hubGrad.addColorStop(1, '#0284c7');
+      ctx.fillStyle = hubGrad;
+      ctx.fill();
+      ctx.strokeStyle = '#facc15';
+      ctx.lineWidth = 4;
+      ctx.stroke();
+
+      // Center Chrome Cap
+      ctx.beginPath();
+      ctx.arc(0, 0, 18, 0, Math.PI * 2);
+      ctx.fillStyle = '#0284c7';
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    /* -------------------------------------------------------------
+       3. DRAW 5-STAR SPLIT AC (SCALED & POSITIONED)
+       ------------------------------------------------------------- */
+    function drawSplitAC(cx, cy, flapOpenProgress, swingOffset, scale) {
+      ctx.save();
+      ctx.translate(cx, cy - 40 * scale);
+      ctx.scale(scale, scale);
+
+      const acW = 460;
+      const acH = 160;
+      const x = -acW / 2;
+      const y = -acH / 2;
+
+      // 1. Icy Cold Mist Waves
+      if (currentRpm > 0 && flapOpenProgress > 0.1) {
+        const norm = currentRpm / 12000;
+        ctx.save();
+        for (let i = 0; i < 5; i++) {
+          const waveY = y + acH + 20 + i * 36 + (performance.now() * 0.05 * norm) % 45;
+          ctx.beginPath();
+          ctx.moveTo(x + 25, waveY);
+          ctx.bezierCurveTo(
+            x + 120, waveY + Math.sin(oscTime + i) * 16,
+            x + 340, waveY - Math.sin(oscTime + i) * 16,
+            x + acW - 25, waveY
+          );
+          ctx.strokeStyle = `rgba(56, 189, 248, ${0.48 * norm * flapOpenProgress})`;
+          ctx.lineWidth = 7;
+          ctx.stroke();
+        }
+
+        // Frost Sparkle Particles
+        mistParticles.forEach(p => {
+          p.y += p.speed * norm * 3.5;
+          if (p.y > 220) {
+            p.y = 15;
+            p.x = (Math.random() - 0.5) * (acW - 60);
+          }
+          ctx.beginPath();
+          ctx.arc(p.x, y + acH + p.y, p.size, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(224, 242, 254, ${p.alpha * norm})`;
+          ctx.fill();
+        });
+        ctx.restore();
+      }
+
+      // 2. Wall Shadow
+      ctx.beginPath();
+      ctx.roundRect(x + 10, y + 12, acW, acH, 18);
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.55)';
+      ctx.fill();
+
+      // 3. Main AC Body
+      ctx.beginPath();
+      ctx.roundRect(x, y, acW, acH, 18);
+      const acGrad = ctx.createLinearGradient(0, y, 0, y + acH);
+      acGrad.addColorStop(0, '#f8fafc');
+      acGrad.addColorStop(0.65, '#e2e8f0');
+      acGrad.addColorStop(1, '#cbd5e1');
+      ctx.fillStyle = acGrad;
+      ctx.fill();
+      ctx.strokeStyle = '#94a3b8';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Chrome Accent Trim Line
+      ctx.beginPath();
+      ctx.moveTo(x + 16, y + acH - 46);
+      ctx.lineTo(x + acW - 16, y + acH - 46);
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      // 4. Golden 5-Star Badge
+      ctx.beginPath();
+      ctx.roundRect(x + 28, y + 24, 58, 30, 6);
+      ctx.fillStyle = '#facc15';
+      ctx.fill();
+      ctx.strokeStyle = '#ca8a04';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      ctx.fillStyle = '#0f172a';
+      ctx.font = 'bold 12px var(--font-sans)';
+      ctx.fillText('5-STAR', x + 34, y + 43);
+
+      // Bhidu Branding
+      ctx.fillStyle = '#475569';
+      ctx.font = '800 15px var(--font-mono)';
+      ctx.fillText('BHIDU INVERTER', x + 102, y + 44);
+
+      // 5. Glowing LED 7-Segment Display (16°C)
+      ctx.beginPath();
+      ctx.roundRect(x + acW - 95, y + 26, 68, 32, 7);
+      ctx.fillStyle = '#0b1120';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      ctx.fillStyle = currentRpm > 0 ? '#38bdf8' : '#334155';
+      ctx.font = 'bold 20px var(--font-mono)';
+      ctx.fillText(currentRpm > 0 ? '16°' : '--', x + acW - 80, y + 49);
+
+      // 6. Bottom Air Exhaust Cavity
+      ctx.beginPath();
+      ctx.roundRect(x + 18, y + acH - 36, acW - 36, 26, 6);
+      ctx.fillStyle = '#0b1120';
+      ctx.fill();
+
+      // 7. Motorized Louver Flap
+      const flapYOffset = flapOpenProgress * (26 + swingOffset * 12);
+      ctx.beginPath();
+      ctx.roundRect(x + 16, y + acH - 36 + flapYOffset, acW - 32, 14, 5);
+      const flapGrad = ctx.createLinearGradient(0, y + acH - 36 + flapYOffset, 0, y + acH - 22 + flapYOffset);
+      flapGrad.addColorStop(0, '#f1f5f9');
+      flapGrad.addColorStop(1, '#94a3b8');
+      ctx.fillStyle = flapGrad;
+      ctx.fill();
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
+    /* -------------------------------------------------------------
+       4. DRAW CROWD GUST BLAST EFFECT
+       ------------------------------------------------------------- */
+    function drawGustBlast() {
+      if (!blastActive) return;
+      ctx.save();
+      ctx.strokeStyle = `rgba(250, 204, 21, ${blastIntensity})`;
+      ctx.lineWidth = 4;
+
+      blastSpeedLines.forEach(line => {
+        ctx.beginPath();
+        ctx.moveTo(line.x, line.y);
+        ctx.lineTo(line.x + line.len, line.y);
+        ctx.stroke();
+        line.x += line.speed;
+        if (line.x > canvas.width) line.x = -line.len;
+      });
+
+      ctx.restore();
+      blastIntensity -= 0.015;
+      if (blastIntensity <= 0) blastActive = false;
+    }
+
+    /* =====================================================================
+       SIMULATION & RENDER LOOP
+       ===================================================================== */
+    let lastTime = performance.now();
+
+    function renderLoop(time) {
+      const dt = Math.min((time - lastTime) / 1000, 0.1);
+      lastTime = time;
+
+      // 1. Smooth RPM ramp
+      currentRpm += (targetRpm - currentRpm) * Math.min(dt * 3.5, 1.0);
+      if (Math.abs(currentRpm - targetRpm) < 0.5) currentRpm = targetRpm;
+
+      const normRpm = currentRpm / 12000;
+      const rps = currentRpm / 60;
+      rotorAngle += rps * 2 * Math.PI * dt;
+
+      // 2. Oscillation Mechanics
+      let tableOscOffset = 0;
+      let acSwingOffset = 0;
+
+      if (oscAmplitude > 0 && currentRpm > 0) {
+        oscTime += dt * 2.4;
+        const oscFactor = oscAmplitude / 90;
+        tableOscOffset = Math.sin(oscTime) * (oscFactor * 48);
+        acSwingOffset = Math.sin(oscTime * 1.5) * oscFactor;
+        oscDisplay.textContent = `±${Math.round(oscFactor * 90)}° SWING`;
+      } else {
+        oscDisplay.textContent = 'OFF';
+      }
+
+      // 3. AC Flap Opening Animation
+      const targetFlap = currentRpm > 0 ? 1.0 : 0.0;
+      acFlapProgress += (targetFlap - acFlapProgress) * dt * 4.0;
+
+      // 4. Render Canvas & Calculate Sizing
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+
+      // Auto-Scale based on canvas dimensions to fill all available space
+      const baseRefWidth = 720;
+      const baseRefHeight = 600;
+      const autoBaseScale = Math.min(canvas.width / baseRefWidth, canvas.height / baseRefHeight);
+      const computedScale = autoBaseScale * userZoomFactor;
+
+      if (currentAppliance === 'table') {
+        drawTableFan(cx, cy, rotorAngle, tableOscOffset, computedScale);
+      } else if (currentAppliance === 'ceiling') {
+        drawCeilingFan(cx, cy, rotorAngle, computedScale);
+      } else if (currentAppliance === 'ac') {
+        drawSplitAC(cx, cy, acFlapProgress, acSwingOffset, computedScale);
+      }
+
+      // Draw stage blast lines if triggered
+      drawGustBlast();
+
+      // 5. Update Audio
+      updateAudioEngine();
+
+      // 6. Update Telemetry
+      rpmDisplay.textContent = Math.round(currentRpm).toLocaleString();
+
+      const calculatedCfm = (rps * 24.6).toFixed(1);
+      airValue.textContent = calculatedCfm;
+      airFill.style.width = Math.min(normRpm * 100, 100) + '%';
+
+      const tempDrop = normRpm * 34.2;
+      const finalTemp = (baseTemp - tempDrop).toFixed(1);
+      tempValue.textContent = finalTemp;
+      tempFill.style.width = Math.min(normRpm * 100, 100) + '%';
+
+      const thrustNewtons = (Math.pow(normRpm, 1.5) * 8.42).toFixed(2);
+      thrustValue.textContent = thrustNewtons;
+      thrustFill.style.width = Math.min(normRpm * 100, 100) + '%';
+
+      const billRate = Math.round(normRpm * 420);
+      billValue.textContent = billRate;
+      billFill.style.width = Math.min(normRpm * 100, 100) + '%';
+
+      const airVelocityKmh = (normRpm * 154.2).toFixed(1);
+      hudVelocity.textContent = `TOOFAN: ${airVelocityKmh} KM/H`;
+
+      // 7. Hazard / Khopdi Fod alert
+      if (currentRpm > 9000) {
+        document.body.classList.add('overclock-shake');
+        hazardBanner.style.display = 'block';
+      } else {
+        document.body.classList.remove('overclock-shake');
+        hazardBanner.style.display = 'none';
+      }
+
+      requestAnimationFrame(renderLoop);
+    }
+
+    /* =====================================================================
+       SWITCH APPLIANCE HANDLER
+       ===================================================================== */
+    function switchAppliance(machine) {
+      currentAppliance = machine;
+
+      applianceCardBtns.forEach(btn => {
+        if (btn.dataset.machine === machine) btn.classList.add('active');
+        else btn.classList.remove('active');
+      });
+
+      if (machine === 'ac') {
+        activeApplianceText.textContent = '5-STAR SPLIT AC (INVERTER)';
+        speedSliderTitle.textContent = 'BLOWER & COMPRESSOR SPEED';
+        oscSliderTitle.textContent = 'FLAP SWING (UPAR-NICHE)';
+        speedUnitText.textContent = 'BLOW';
+        if (isRunning) playAcBeep();
+        triggerSpeech("AC chalu kiya hai Bhidu! Remote ka beep suno!");
+      } else if (machine === 'ceiling') {
+        activeApplianceText.textContent = 'CHHAT WALA PANKHA (CEILING)';
+        speedSliderTitle.textContent = 'PANKHE KA CHAKKAR';
+        oscSliderTitle.textContent = 'WOBBLE SWING';
+        speedUnitText.textContent = 'RPM';
+        triggerSpeech("Chhat wala pankha ghoom rela hai! Floor pe shadow dekho!");
+      } else {
+        activeApplianceText.textContent = 'JABRA TABLE PANKHA';
+        speedSliderTitle.textContent = 'PANKHE KA CHAKKAR';
+        oscSliderTitle.textContent = 'MUNDI HILA (SWING)';
+        speedUnitText.textContent = 'RPM';
+        triggerSpeech("Table fan samne rakhne ka! Seedha thobde pe hawa!");
+      }
+    }
+
+    applianceCardBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        switchAppliance(btn.dataset.machine);
+      });
+    });
+
+    /* =====================================================================
+       STAGE TWISTS & INTERACTION
+       ===================================================================== */
+    function triggerSpeech(text) {
+      speechText.textContent = text;
+      speechBubble.style.transform = 'scale(1.15)';
+      setTimeout(() => { speechBubble.style.transform = 'scale(1)'; }, 250);
+    }
+
+    // Size Booster Handlers
+    function updateSizeDisplay() {
+      sizeValText.textContent = Math.round(userZoomFactor * 100) + '%';
+    }
+
+    sizePlusBtn.addEventListener('click', () => {
+      if (userZoomFactor < 2.0) {
+        userZoomFactor += 0.15;
+        updateSizeDisplay();
+      }
+    });
+
+    sizeMinusBtn.addEventListener('click', () => {
+      if (userZoomFactor > 0.6) {
+        userZoomFactor -= 0.15;
+        updateSizeDisplay();
+      }
+    });
+
+    // 1. "E BHAI, BAJU ME RE THODA!" Stage Blast
+    bajuMeReBtn.addEventListener('click', () => {
+      triggerSpeech("🗣️ &ldquo;E BHAI, BAJU ME RE THODA... HAWAA AANE DE!&rdquo;");
+
+      if (!isRunning) powerToggle();
+
+      targetRpm = 6500;
+      rpmSlider.value = 6500;
+      selectPresetByRpm(6500);
+
+      playGustBlastAudio();
+
+      blastActive = true;
+      blastIntensity = 1.0;
+      blastSpeedLines = [];
+      for (let i = 0; i < 30; i++) {
+        blastSpeedLines.push({
+          x: Math.random() * canvas.width * 0.5,
+          y: Math.random() * canvas.height,
+          len: 100 + Math.random() * 200,
+          speed: 18 + Math.random() * 30
+        });
+      }
+    });
+
+    // 2. 1,500 Public Vibe Check
+    vibeCheckBtn.addEventListener('click', () => {
+      triggerSpeech("🔥 1,500 Developers in the crowd detected! Dialing max thandak!");
+      if (!isRunning) powerToggle();
+
+      targetRpm = 11500;
+      rpmSlider.value = 11500;
+      selectPresetByRpm(11500);
+    });
+
+    // 3. Fullscreen / Stage Mode Toggle
+    fsToggleBtn.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+        fsToggleBtn.innerHTML = '<span>✕</span><span>Exit Stage</span>';
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+        fsToggleBtn.innerHTML = '<span>⛶</span><span>Stage Mode</span>';
+      }
+      setTimeout(resizeCanvas, 150);
+    });
+
+    // Power Toggle
+    function powerToggle() {
+      if (!audioCtx) initAudioEngine();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+
+      isRunning = !isRunning;
+      if (isRunning) {
+        powerBtn.classList.add('active');
+        powerBtnText.textContent = 'Bandh Kar Re Baba!';
+        rpmSlider.disabled = false;
+        oscSlider.disabled = false;
+        presetPills.forEach(p => p.disabled = false);
+
+        if (currentAppliance === 'ac') playAcBeep();
+
+        targetRpm = 2200;
+        rpmSlider.value = 2200;
+        selectPresetByRpm(2200);
+        triggerSpeech("Chalu ho gaya! Speaker se hawa feel karo!");
+      } else {
+        powerBtn.classList.remove('active');
+        powerBtnText.textContent = 'Chalu Kar, Bhidu!';
+        rpmSlider.disabled = true;
+        oscSlider.disabled = true;
+        presetPills.forEach(p => {
+          p.disabled = true;
+          p.classList.remove('active');
+        });
+        targetRpm = 0;
+        rpmSlider.value = 0;
+        profileStatus.textContent = 'SAB THANDI HAI';
+        triggerSpeech("Pankha bandh! Garmi wapas aa reli hai!");
+      }
+    }
+
+    powerBtn.addEventListener('click', powerToggle);
+
+    // Sliders
+    rpmSlider.addEventListener('input', (e) => {
+      targetRpm = parseFloat(e.target.value);
+      selectPresetByRpm(targetRpm);
+    });
+
+    oscSlider.addEventListener('input', (e) => {
+      oscAmplitude = parseFloat(e.target.value);
+    });
+
+    // Presets
+    presetPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        const rpm = parseFloat(pill.dataset.rpm);
+        targetRpm = rpm;
+        rpmSlider.value = rpm;
+        selectPresetPill(pill);
+        if (currentAppliance === 'ac') playAcBeep();
+      });
+    });
+
+    function selectPresetPill(activePill) {
+      presetPills.forEach(p => p.classList.remove('active'));
+      activePill.classList.add('active');
+      profileStatus.textContent = activePill.textContent.toUpperCase();
+    }
+
+    function selectPresetByRpm(rpm) {
+      let matched = false;
+      presetPills.forEach(p => {
+        if (Math.abs(parseFloat(p.dataset.rpm) - rpm) < 200) {
+          selectPresetPill(p);
+          matched = true;
+        }
+      });
+      if (!matched) {
+        presetPills.forEach(p => p.classList.remove('active'));
+        if (rpm > 9000) profileStatus.textContent = 'KHOPDI FOD 🔥';
+        else if (rpm > 4000) profileStatus.textContent = 'TOOFANI SPEED';
+        else if (rpm > 0) profileStatus.textContent = 'MANPASAND';
+        else profileStatus.textContent = 'SAB THANDI HAI';
+      }
+    }
+
+    /* =====================================================================
+       STAGE KEYBOARD SHORTCUTS
+       ===================================================================== */
+    window.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT') return;
+
+      const key = e.key.toLowerCase();
+      if (key === ' ' || e.code === 'Space') {
+        e.preventDefault();
+        powerToggle();
+      } else if (key === '1') {
+        switchAppliance('table');
+      } else if (key === '2') {
+        switchAppliance('ceiling');
+      } else if (key === '3') {
+        switchAppliance('ac');
+      } else if (key === 'b') {
+        bajuMeReBtn.click();
+      } else if (key === 'f') {
+        fsToggleBtn.click();
+      } else if (key === '+' || key === '=') {
+        sizePlusBtn.click();
+      } else if (key === '-' || key === '_') {
+        sizeMinusBtn.click();
+      }
+    });
+
+    // Speech Cycle
+    setInterval(() => {
+      if (isRunning && !blastActive) {
+        const randomQuote = bhiduQuotes[Math.floor(Math.random() * bhiduQuotes.length)];
+        triggerSpeech(randomQuote);
+      }
+    }, 12000);
+
+    // Initial resize call
+    setTimeout(resizeCanvas, 50);
+
+    // Start Simulation Loop
+    requestAnimationFrame(renderLoop);
+  </script>
+</body>
+</html>
