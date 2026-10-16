@@ -6,6 +6,9 @@
 [![Live Demo](https://img.shields.io/badge/LIVE_DEMO-jabrafan.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://jabrafan.vercel.app)
 [![GitHub Repo](https://img.shields.io/badge/GitHub-pratikbutani%2Fjabra--fan-181717?style=for-the-badge&logo=github)](https://github.com/pratikbutani/jabra-fan)
 [![DevFest Mumbai](https://img.shields.io/badge/DevFest_Mumbai_2026-GDG_MAD-4285F4?style=for-the-badge&logo=google)](https://devfestmumbai.com)
+[![Made with Love in India](https://img.shields.io/badge/Made_with_❤️-in_India-FF9933?style=for-the-badge)](https://pratikbutani.com)
+[![Built with Google AI Studio](https://img.shields.io/badge/Built_with-Google_AI_Studio-4285F4?style=for-the-badge&logo=google)](https://aistudio.google.com)
+[![Creator](https://img.shields.io/badge/Created_by-Pratik_Butani-000000?style=for-the-badge)](https://pratikbutani.com)
 
 ---
 
@@ -117,11 +120,9 @@ Open `http://localhost:8080` in Chrome or Safari.
 
 ---
 
-## 🏆 Competition Details
+## 👨‍💻 Creator & Credits
 
-* **Live App:** [https://jabrafan.vercel.app](https://jabrafan.vercel.app)
-* **GitHub Repo:** [https://github.com/pratikbutani/jabra-fan](https://github.com/pratikbutani/jabra-fan)
-* **Challenge:** [The Dumb Ideas Challenge](https://tally.so/r/68bYBA)
-* **Organized By:** GDG MAD (`@gdgmad`)
-* **Event:** DevFest Mumbai 2026
-* **Live Form Answers:** See [SUBMISSION.md](file:///Users/pratikbutani/Pratik/Projects%20/Virtual%20Vantilation/SUBMISSION.md)
+* **Crafted by:** [Pratik Butani](https://pratikbutani.com)
+* **Built with:** [Google AI Studio](https://aistudio.google.com)
+* **Made with:** ❤️ in India 🇮🇳
+* **Portfolio & Contact:** [pratikbutani.com](https://pratikbutani.com)

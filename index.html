@@ -179,6 +179,31 @@
       gap: 0.4rem;
     }
 
+    .creator-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-main);
+      text-decoration: none;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(250, 204, 21, 0.35);
+      padding: 0.38rem 0.75rem;
+      border-radius: 0.5rem;
+      transition: all 0.2s;
+    }
+
+    .creator-badge strong {
+      color: var(--accent-gold);
+    }
+
+    .creator-badge:hover {
+      border-color: var(--accent-gold);
+      background: rgba(250, 204, 21, 0.15);
+      transform: translateY(-1px);
+    }
+
     .fullscreen-btn {
       background: rgba(15, 23, 42, 0.85);
       border: 1px solid rgba(255, 255, 255, 0.15);
@@ -357,7 +382,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 0.8rem;
+      gap: 0.55rem;
       height: 100%;
     }
 
@@ -646,7 +671,13 @@
       cursor: not-allowed;
     }
 
-    /* Stage Shortcuts Bar */
+    /* Stage Shortcuts & Credits Footer */
+    .footer-deck {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
     .shortcuts-bar {
       font-family: var(--font-mono);
       font-size: 0.65rem;
@@ -654,7 +685,7 @@
       text-align: center;
       background: rgba(11, 17, 32, 0.75);
       border: 1px solid rgba(255, 255, 255, 0.06);
-      padding: 0.4rem;
+      padding: 0.35rem;
       border-radius: 0.5rem;
     }
 
@@ -665,6 +696,35 @@
       padding: 1px 4px;
       color: var(--accent-gold);
       font-weight: 700;
+    }
+
+    .credits-bar {
+      font-family: var(--font-mono);
+      font-size: 0.64rem;
+      color: var(--text-muted);
+      text-align: center;
+      background: rgba(11, 17, 32, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 0.35rem 0.5rem;
+      border-radius: 0.5rem;
+      line-height: 1.4;
+    }
+
+    .credits-bar strong {
+      color: var(--accent-cyan);
+    }
+
+    .credits-bar a {
+      color: var(--accent-gold);
+      text-decoration: none;
+      font-weight: 700;
+      border-bottom: 1px dotted var(--accent-gold);
+      transition: all 0.15s;
+    }
+
+    .credits-bar a:hover {
+      color: #ffffff;
+      border-bottom-style: solid;
     }
   </style>
 </head>
@@ -692,6 +752,10 @@
         <span>📢</span>
         <span id="activeApplianceText">JABRA TABLE PANKHA</span>
       </div>
+      <a href="https://pratikbutani.com" target="_blank" rel="noopener noreferrer" class="creator-badge" title="Created by Pratik Butani">
+        <span>🇮🇳</span>
+        <span>Created by <strong>Pratik Butani</strong></span>
+      </a>
       <button class="fullscreen-btn" id="fsToggleBtn" title="Projector Fullscreen">
         <span>⛶</span>
         <span>Stage Mode</span>
@@ -862,9 +926,14 @@
 
       </section>
 
-      <!-- Stage Shortcuts Footer -->
-      <footer class="shortcuts-bar">
-        <span>⚡ <strong>STAGE HOTKEYS:</strong> <kbd>Space</kbd> Power &bull; <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> Machines &bull; <kbd>B</kbd> Baju Me Re! &bull; <kbd>+</kbd><kbd>-</kbd> Size &bull; <kbd>F</kbd> Fullscreen</span>
+      <!-- Stage Shortcuts & Credits Footer -->
+      <footer class="footer-deck">
+        <div class="shortcuts-bar">
+          <span>⚡ <strong>STAGE HOTKEYS:</strong> <kbd>Space</kbd> Power &bull; <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> Machines &bull; <kbd>B</kbd> Baju Me Re! &bull; <kbd>+</kbd><kbd>-</kbd> Size &bull; <kbd>F</kbd> Fullscreen</span>
+        </div>
+        <div class="credits-bar">
+          <span>Made with ❤️ in India &bull; Built with <strong>Google AI Studio</strong> &bull; Created by <a href="https://pratikbutani.com" target="_blank" rel="noopener noreferrer">Pratik Butani</a></span>
+        </div>
       </footer>
 
     </aside>
