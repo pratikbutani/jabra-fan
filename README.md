@@ -4,6 +4,7 @@
 > *Official Entry for **The Dumb Ideas Challenge** — GDG MAD &bull; DevFest Mumbai 2026*
 
 [![Live Demo](https://img.shields.io/badge/LIVE_DEMO-jabrafan.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://jabrafan.vercel.app)
+[![Google Play](https://img.shields.io/badge/Google_Play-Android_App-34A853?style=for-the-badge&logo=googleplay&logoColor=white)](https://play.google.com/store/apps/details?id=com.swastik.jabra.fan.summer)
 [![GitHub Repo](https://img.shields.io/badge/GitHub-pratikbutani%2Fjabra--fan-181717?style=for-the-badge&logo=github)](https://github.com/pratikbutani/jabra-fan)
 [![DevFest Mumbai](https://img.shields.io/badge/DevFest_Mumbai_2026-GDG_MAD-4285F4?style=for-the-badge&logo=google)](https://devfestmumbai.com)
 [![Made with Love in India](https://img.shields.io/badge/Made_with_❤️-in_India-FF9933?style=for-the-badge)](https://pratikbutani.com)
@@ -12,9 +13,9 @@
 
 ---
 
-### 🌐 Live Application
-👉 **Experience it live right now:** **[https://jabrafan.vercel.app](https://jabrafan.vercel.app)**  
-*(Best experienced in Chrome / Safari on desktop with speakers ON!)*
+### 🌐 Live Web & Mobile Apps
+* 💻 **Web Version (Desktop & Stage Cockpit):** **[https://jabrafan.vercel.app](https://jabrafan.vercel.app)** *(Speakers ON!)*
+* 📱 **Android App (Google Play Store):** **[Download on Google Play](https://play.google.com/store/apps/details?id=com.swastik.jabra.fan.summer)** *(Package: `com.swastik.jabra.fan.summer`)*
 
 ---
 

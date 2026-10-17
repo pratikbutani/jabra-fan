@@ -224,6 +224,173 @@
       background: rgba(56, 189, 248, 0.2);
     }
 
+    /* Top Nav Play Store Badge */
+    .playstore-nav-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-main);
+      text-decoration: none;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      padding: 0.38rem 0.75rem;
+      border-radius: 0.5rem;
+      transition: all 0.2s;
+    }
+
+    .playstore-nav-badge:hover {
+      border-color: #38bdf8;
+      background: rgba(56, 189, 248, 0.18);
+      transform: translateY(-1px);
+    }
+
+    /* Mobile Detection & Interstitial Gate */
+    .mobile-gate-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: radial-gradient(circle at 50% 30%, #0d2242 0%, #050b16 85%);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .mobile-gate-overlay.show {
+      display: flex;
+    }
+
+    .mobile-gate-card {
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 1.5rem;
+      padding: 2rem 1.5rem;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.8), 0 0 30px rgba(56, 189, 248, 0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.15rem;
+    }
+
+    .mobile-app-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      box-shadow: 0 10px 25px rgba(56, 189, 248, 0.4);
+    }
+
+    .spinning-fan-emoji {
+      display: inline-block;
+      animation: spin 3s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .mobile-gate-card h2 {
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+
+    .mobile-tagline {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* Google Play Store Official Badge Button */
+    .google-play-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.85rem;
+      background: #000000;
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
+      color: #ffffff;
+      text-decoration: none;
+      padding: 0.65rem 1.4rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .google-play-btn:hover {
+      border-color: #38bdf8;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.35);
+    }
+
+    .play-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      line-height: 1.15;
+    }
+
+    .play-text .small-sub {
+      font-family: var(--font-sans);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      color: #cbd5e1;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .play-text .big-title {
+      font-family: var(--font-sans);
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+    }
+
+    .mobile-continue-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      cursor: pointer;
+      text-decoration: underline;
+      padding: 0.4rem;
+      transition: color 0.15s;
+    }
+
+    .mobile-continue-btn:hover {
+      color: var(--accent-cyan);
+    }
+
+    .mobile-credits {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 0.75rem;
+      width: 100%;
+    }
+
+    .mobile-credits a {
+      color: var(--accent-gold);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
     /* Main Stage Workspace (2 Columns, Full Viewport) */
     .stage-container {
       position: relative;
@@ -730,6 +897,41 @@
 </head>
 <body>
 
+  <!-- Dedicated Mobile Detection Overlay -->
+  <div id="mobileGateOverlay" class="mobile-gate-overlay">
+    <div class="mobile-gate-card">
+      <div class="mobile-app-icon">
+        <span class="spinning-fan-emoji">🌀</span>
+      </div>
+      <h2>Jabra Fan: Mobile App Available!</h2>
+      <p class="mobile-tagline">
+        Yeh web version desktop & stage presentation ke liye optimized hai. Mobile pe pocket thandak aur relaxing sleep fan noise ke liye humara official Android app use karo!
+      </p>
+      
+      <!-- Official Google Play Badge Button -->
+      <a href="https://play.google.com/store/apps/details?id=com.swastik.jabra.fan.summer" target="_blank" rel="noopener noreferrer" class="google-play-btn">
+        <svg class="play-icon" viewBox="0 0 512 512" width="28" height="28">
+          <path fill="#4285F4" d="M32.5 12.3c-4.4 4.7-6.9 12.3-6.9 22.3v442.8c0 10 2.5 17.6 6.9 22.3l1.2 1.2 248.3-248.3v-5.8L33.7 11.1l-1.2 1.2z"/>
+          <path fill="#FBBC04" d="M364.5 329.8l-82.5-82.5v-5.8l82.5-82.5 1.8 1 97.8 55.6c27.9 15.9 27.9 41.8 0 57.7l-97.8 55.6-1.8 0.9z"/>
+          <path fill="#EA4335" d="M366.3 328.8L282 244.5 32.5 494c9.2 9.8 24.5 10.9 41.9 1.1l291.9-166.3"/>
+          <path fill="#34A853" d="M366.3 183.2L74.4 16.9C57 7.1 41.7 8.2 32.5 18l249.5 249.5 84.3-84.3"/>
+        </svg>
+        <div class="play-text">
+          <span class="small-sub">GET IT ON</span>
+          <span class="big-title">Google Play</span>
+        </div>
+      </a>
+
+      <button id="dismissMobileGate" class="mobile-continue-btn">
+        Continue to Desktop Web Demo Anyway &rarr;
+      </button>
+
+      <div class="mobile-credits">
+        <span>Made with ❤️ in India &bull; Created by <a href="https://pratikbutani.com" target="_blank" rel="noopener noreferrer">Pratik Butani</a></span>
+      </div>
+    </div>
+  </div>
+
   <!-- Hazard Header (Khopdi Fod Alert) -->
   <div class="hazard-banner" id="hazardBanner">
     🚨 AE BHIDU! PANKHA UD JAYEGA! ITNA FAST NAHI CHALANE KA! SPEAKER PHAT JAYEGA RE BABA! 🚨
@@ -748,6 +950,15 @@
     </div>
 
     <div class="header-actions">
+      <a href="https://play.google.com/store/apps/details?id=com.swastik.jabra.fan.summer" target="_blank" rel="noopener noreferrer" class="playstore-nav-badge" title="Get it on Google Play">
+        <svg viewBox="0 0 512 512" width="14" height="14">
+          <path fill="#4285F4" d="M32.5 12.3c-4.4 4.7-6.9 12.3-6.9 22.3v442.8c0 10 2.5 17.6 6.9 22.3l1.2 1.2 248.3-248.3v-5.8L33.7 11.1l-1.2 1.2z"/>
+          <path fill="#FBBC04" d="M364.5 329.8l-82.5-82.5v-5.8l82.5-82.5 1.8 1 97.8 55.6c27.9 15.9 27.9 41.8 0 57.7l-97.8 55.6-1.8 0.9z"/>
+          <path fill="#EA4335" d="M366.3 328.8L282 244.5 32.5 494c9.2 9.8 24.5 10.9 41.9 1.1l291.9-166.3"/>
+          <path fill="#34A853" d="M366.3 183.2L74.4 16.9C57 7.1 41.7 8.2 32.5 18l249.5 249.5 84.3-84.3"/>
+        </svg>
+        <span>Google Play</span>
+      </a>
       <div class="stage-pill">
         <span>📢</span>
         <span id="activeApplianceText">JABRA TABLE PANKHA</span>
@@ -1929,6 +2140,26 @@
         triggerSpeech(randomQuote);
       }
     }, 12000);
+
+    /* =====================================================================
+       MOBILE DETECTION & INTERSTITIAL MODAL
+       ===================================================================== */
+    const mobileGateOverlay = document.getElementById('mobileGateOverlay');
+    const dismissMobileGate = document.getElementById('dismissMobileGate');
+    const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                           (window.innerWidth <= 768 && ('ontouchstart' in window || navigator.maxTouchPoints > 0));
+
+    if (isMobileDevice && !sessionStorage.getItem('dismissedMobileGate')) {
+      mobileGateOverlay.classList.add('show');
+    }
+
+    if (dismissMobileGate) {
+      dismissMobileGate.addEventListener('click', () => {
+        mobileGateOverlay.classList.remove('show');
+        sessionStorage.setItem('dismissedMobileGate', 'true');
+        setTimeout(resizeCanvas, 100);
+      });
+    }
 
     // Initial resize call
     setTimeout(resizeCanvas, 50);
